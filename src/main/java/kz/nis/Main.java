@@ -28,8 +28,8 @@ public class Main {
         LessonDAO lessonDAO = context.getBean("jpaLessonDAO", LessonDAOImpl.class);
         TeacherDAO teacherDAO = context.getBean("jpaTeacherDAO", TeacherDAOImpl.class);
         AttendanceDAO attendDAO = context.getBean("jpaAttendanceDAO", AttendanceDAOImpl.class);
-        Attendance attendance= attendDAO.findByid(1L);
-        attendance.setPresent(true);
-        attendDAO.save(attendance);
+        Lesson lesson = lessonDAO.findByName(4L);
+        lesson.setSubjectSet(teacherDAO.findByName(2L).getSubject());
+        lessonDAO.save(lesson);
     }
 }
