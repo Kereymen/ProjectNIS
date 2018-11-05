@@ -1,0 +1,52 @@
+create table student(
+  student_id int not null primary key auto_increment
+                     ,fistname varchar(60) not null
+                     ,surname varchar (60) not null
+                     ,patronymic varchar (60) not null
+                     ,groupId int not null
+                     , constraint fk_students_1 foreign key(groupId)
+                        references group (group_id)
+
+  );
+create table student_to_lesson(
+  studentId int not null
+  ,lessonId int not null
+  , primary key(studentId,lessonId)
+  , constraint fk_student_to_lesson_1 foreign key(studentId)
+  references students(student_id)
+  , constraint fk_student_to_lesson_2 foreign key(lessonId)
+  references lesson(lesson_id)
+  
+  );
+create table group(
+  group_id int not null primary key auto_increment
+                  ,name_group varchar(60)not null
+  );
+create table subject(
+  subject_id int not null primary key auto_increment
+                    , subject_name varchar (60) not null
+
+  );
+create table lesson(
+lesson_id int not null primary key auto_increment
+                   ,lesson_type varchar(60) not null
+                   ,date_ date
+                   ,start_lesson time
+                   ,end_lesson time
+                   ,is_present tinyint(1) default null
+                   ,teacherID int not null
+                   , subjectID int not null
+                   ,constraint fk_lesson_1 foreign key (teacherID)
+                   references teacher(tracher_id)
+                   , constraint fk_lesson_2 foreign key(subjectID)
+                   references subject(subject_id)
+  );
+create table techer(
+  teacher_id int not null primary key auto_increment
+                   ,teacher_name varchar (60) not null
+                   , teacher_surname varchar (60) not null
+                   , teacher_patronymic varchar (60) not null
+                   ,subjectId int not null
+                   , constraint fk_teacher_1 foreign key(subjectId)
+                   references subject(subject_id)
+  );
