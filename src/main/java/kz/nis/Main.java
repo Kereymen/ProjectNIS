@@ -1,5 +1,7 @@
 package kz.nis;
 
+import kz.nis.data.dao.attendDAO.AttendanceDAO;
+import kz.nis.data.dao.attendDAO.AttendanceDAOImpl;
 import kz.nis.data.dao.groupDAO.GroupDAO;
 import kz.nis.data.dao.groupDAO.GroupDAOImpl;
 import kz.nis.data.dao.lessonDAO.LessonDAO;
@@ -13,6 +15,8 @@ import kz.nis.data.dao.teacherDAO.TeacherDAOImpl;
 import kz.nis.model.entity.*;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
         GenericXmlApplicationContext context = new GenericXmlApplicationContext();
@@ -23,11 +27,9 @@ public class Main {
         SubjectDAO subjectDAO = context.getBean("jpaSubjectDAO", SubjectDAOImpl.class);
         LessonDAO lessonDAO = context.getBean("jpaLessonDAO", LessonDAOImpl.class);
         TeacherDAO teacherDAO = context.getBean("jpaTeacherDAO", TeacherDAOImpl.class);
-        Lesson lesson = lessonDAO.findByName(4L);
-        Student student = studentDAO.findById(1L);
-        lesson.addStudent(student);
-        student.addLesson(lesson);
-        studentDAO.save(student);
-        lessonDAO.save(lesson);
+        AttendanceDAO attendDAO = context.getBean("jpaAttendanceDAO", AttendanceDAOImpl.class);
+        Attendance attendance= attendDAO.findByid(1L);
+        attendance.setPresent(true);
+        attendDAO.save(attendance);
     }
 }

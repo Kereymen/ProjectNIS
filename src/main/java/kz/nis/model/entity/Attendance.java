@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "attendance")
+@NamedQuery(name = "Attend.findById",query = "select distinct c from Attendance c " +
+        "left join c.lesson g left join c.student s where c.attendID = :id")
 public class Attendance {
 
     @Id
